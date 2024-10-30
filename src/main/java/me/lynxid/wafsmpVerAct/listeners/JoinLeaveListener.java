@@ -14,7 +14,7 @@ public class JoinLeaveListener implements Listener{
 
         Player player = e.getPlayer();
 
-        e.setQuitMessage(ChatColor.YELLOW + player.getDisplayName() + ChatColor.RED + " has left! good riddance");
+        e.setQuitMessage(ChatColor.YELLOW + player.getDisplayName() + ChatColor.RED + " has left!");
 
     }
 
@@ -24,9 +24,9 @@ public class JoinLeaveListener implements Listener{
         Player player = e.getPlayer();
 
         if(player.hasPlayedBefore()){
-            e.setJoinMessage(ChatColor.DARK_GREEN + "Welcome back to the WSMP " + ChatColor.BOLD + player.getDisplayName() + ChatColor.DARK_GREEN + "!");
+            e.setJoinMessage(ChatColor.DARK_GREEN + "Welcome back to the WSMP, " + ChatColor.BOLD + player.getDisplayName() + ChatColor.DARK_GREEN + "!");
         }else{
-            e.setJoinMessage(ChatColor.DARK_AQUA + "Welcome to the WSMP " + ChatColor.BOLD + player.getDisplayName() + ChatColor.DARK_AQUA + "! Have Fun!");
+            e.setJoinMessage(ChatColor.DARK_AQUA + "Welcome to the WSMP, " + ChatColor.BOLD + player.getDisplayName() + ChatColor.DARK_AQUA + "! Have Fun!");
         }
 
     }

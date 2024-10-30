@@ -1,5 +1,5 @@
 name: Wafsmp-VerAct
-version: '1.7-SNAPSHOT'
+version: '1.11-SNAPSHOT'
 main: me.lynxid.wafsmpVerAct.WafsmpVerAct
 api-version: '1.19'
 load: STARTUP
@@ -7,6 +7,12 @@ authors: [ Lynxid ]
 description: A Plugin used by the WafflesSMP to verify users, and track activity.
 website: wafcorp.org/smp
 commands:
-  die:
-    description: A simple death :(
+  god:
+    description: Toggle no damage :<
     usage: /<command>
+  rules:
+    description: Shows the rules of the WSMP
+    usage: /<command> [pg.1|pg.2]
+  mute:
+    description: Mutes a player
+    usage: /<command> {player}
