@@ -1,27 +1,24 @@
 package me.lynxid.wafsmpVerAct.commands;
 
-import me.lynxid.wafsmpVerAct.WafsmpVerAct;
-import me.lynxid.wafsmpVerAct.listeners.PlayerListener;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.chat.hover.content.Text;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 public class Rulescommand implements CommandExecutor {
-    FileConfiguration config = WafsmpVerAct.plugin.getConfig();
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] strings) {
 
         if (sender instanceof Player p) {
             if (strings.length < 1) {
+                p.setCanPickupItems(false);
+
                 p.sendMessage(" ");
                 p.sendMessage(" ");
                 p.sendMessage(" ");
@@ -106,15 +103,19 @@ public class Rulescommand implements CommandExecutor {
                 p.sendMessage(" ");
                 p.sendMessage(" ");
                 p.sendMessage(" ");
+                p.sendMessage(" ");
+                p.sendMessage(" ");
+                p.sendMessage(" ");
+                p.sendMessage(" ");
+                p.sendMessage(" ");
+                p.sendMessage(" ");
+                p.sendMessage(" ");
+                p.sendMessage(" ");
+                p.sendMessage(" ");
                 sender.getServer().broadcastMessage(ChatColor.GOLD + "" + ChatColor.BOLD + p.getDisplayName() + " has accepted the rules! Welcome to the server!");
 
             }
         }
-
-
-
-
-
 
 
         return true;
