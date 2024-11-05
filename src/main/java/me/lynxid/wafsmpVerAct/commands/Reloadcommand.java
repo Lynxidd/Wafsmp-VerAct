@@ -1,6 +1,5 @@
 package me.lynxid.wafsmpVerAct.commands;
 
-import me.lynxid.wafsmpVerAct.WafsmpVerAct;
 import me.lynxid.wafsmpVerAct.files.CustomConfig;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
