@@ -2,7 +2,9 @@ package me.lynxid.wafsmpVerAct;
 
 import me.lynxid.wafsmpVerAct.commands.*;
 import me.lynxid.wafsmpVerAct.files.CustomConfig;
+import me.lynxid.wafsmpVerAct.files.PlayerFile;
 import me.lynxid.wafsmpVerAct.listeners.JoinLeaveListener;
+import me.lynxid.wafsmpVerAct.listeners.JoinListener;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -13,7 +15,7 @@ public final class WafsmpVerAct extends JavaPlugin implements Listener {
     public void onEnable() {
         // Plugin startup logic
 
-        System.out.println("Wafsmp VerAct has started!");
+        getLogger().info("Wafsmp VerAct has started!");
 
         saveDefaultConfig();
 
@@ -22,10 +24,12 @@ public final class WafsmpVerAct extends JavaPlugin implements Listener {
         CustomConfig.get().options().copyDefaults(true);
         CustomConfig.save();
 
+        PlayerFile.setup();
 
 
         getServer().getPluginManager().registerEvents(this, this);
         getServer().getPluginManager().registerEvents(new JoinLeaveListener(this), this);
+        getServer().getPluginManager().registerEvents(new JoinListener(),this);
         getCommand("rules").setExecutor(new Rulescommand());
         getCommand("setjoinmessage").setExecutor(new SetMessageCommand(this));
         getCommand("test").setExecutor(new testcommand());

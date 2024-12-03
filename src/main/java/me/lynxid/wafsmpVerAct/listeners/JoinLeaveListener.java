@@ -6,14 +6,21 @@ import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.chat.hover.content.Text;
 import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-public class JoinLeaveListener implements Listener{
+import java.io.File;
+import java.util.UUID;
 
-    private  final WafsmpVerAct plugin;
+import static me.lynxid.wafsmpVerAct.files.PlayerFile.userdata;
+
+
+public class JoinLeaveListener implements Listener {
+
+    private final WafsmpVerAct plugin;
 
     public JoinLeaveListener(WafsmpVerAct plugin) {
         this.plugin = plugin;
@@ -22,14 +29,16 @@ public class JoinLeaveListener implements Listener{
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
 
-        Player player = e.getPlayer();
-
         String joinmessage = this.plugin.getConfig().getString("join-message");
+        UUID playeru = e.getPlayer().getUniqueId();
+        File file = new File(userdata, File.separator + playeru + ".yml");
+        FileConfiguration playerData = YamlConfiguration.loadConfiguration(file);
+
 
         if (joinmessage != null) {
-            if (player.hasPlayedBefore()) {
+            if (playerData.getBoolean("Accepted Rules")) {
                 joinmessage = joinmessage.replace("%player%", e.getPlayer().getDisplayName());
-                e.setJoinMessage(ChatColor.translateAlternateColorCodes('&',joinmessage));
+                e.setJoinMessage(ChatColor.translateAlternateColorCodes('&', joinmessage));
             } else {
 
                 e.setJoinMessage(" ");
@@ -46,7 +55,10 @@ public class JoinLeaveListener implements Listener{
                 e.getPlayer().spigot().sendMessage(msg);
 
             }
-
         }
     }
 }
+
+
+
+
