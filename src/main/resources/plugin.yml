@@ -1,5 +1,5 @@
 name: Wafsmp-VerAct
-version: '1.14-SNAPSHOT'
+version: '1.15-SNAPSHOT'
 main: me.lynxid.wafsmpVerAct.WafsmpVerAct
 api-version: '1.19'
 load: STARTUP
