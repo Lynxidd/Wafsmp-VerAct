@@ -1,5 +1,6 @@
 package me.lynxid.wafsmpVerAct.listeners;
 
+import me.lynxid.wafsmpVerAct.files.PlayerFile;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -26,8 +27,8 @@ public class JoinListener implements Listener {
         UUID playeru = player.getUniqueId();
         String playern = player.getDisplayName();
 
-        File userdata = new File(Bukkit.getServer().getPluginManager().getPlugin("Wafsmp-VerAct").getDataFolder(), File.separator + "UserData");
-        File file = new File(userdata, File.separator + playeru + ".yml");
+        File UserData = new File(Bukkit.getServer().getPluginManager().getPlugin("Wafsmp-VerAct").getDataFolder(), File.separator + "UserData");
+        File file = new File(UserData, File.separator + playeru + ".yml");
         FileConfiguration playerData = YamlConfiguration.loadConfiguration(file);
         if (!file.exists()) {
             getLogger().info("[Wafsmp-VerAct] " + e.getPlayer().getDisplayName() + " does not have a config file! Attempting to generate a new one!");
@@ -38,9 +39,10 @@ public class JoinListener implements Listener {
             }
 
             try {
+                PlayerFile.time();
                 playerData.load(file);
                 playerData.set("Player Name", playern);
-                playerData.set("Migrated date(dd-MM-yy)", date);
+                playerData.set("Migrated date(dd-MM-yyyy)", date);
                 playerData.save(file);
             } catch (IOException | InvalidConfigurationException i) {
                 i.printStackTrace();

@@ -1,5 +1,6 @@
 package me.lynxid.wafsmpVerAct.commands;
 
+import me.lynxid.wafsmpVerAct.files.PlayerFile;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -19,7 +20,7 @@ import java.io.IOException;
 import java.util.UUID;
 
 import static me.lynxid.wafsmpVerAct.files.PlayerFile.date;
-import static me.lynxid.wafsmpVerAct.files.PlayerFile.userdata;
+import static me.lynxid.wafsmpVerAct.files.PlayerFile.userData;
 
 public class Rulescommand implements CommandExecutor {
 
@@ -29,7 +30,7 @@ public class Rulescommand implements CommandExecutor {
         Player p = (Player) sender;
 
         UUID playeru = p.getUniqueId();
-        File file = new File(userdata, File.separator + playeru + ".yml");
+        File file = new File(userData, File.separator + playeru + ".yml");
         FileConfiguration playerData = YamlConfiguration.loadConfiguration(file);
 
         if (strings.length < 1) {
@@ -143,6 +144,7 @@ public class Rulescommand implements CommandExecutor {
             sender.getServer().broadcastMessage(ChatColor.GOLD + "" + ChatColor.BOLD + p.getDisplayName() + " has accepted the rules! Welcome to the server!");
 
             try {
+                PlayerFile.time();
                 playerData.load(file);
                 playerData.set("Accepted Rules", true);
                 playerData.set("Time Accepted", date);

@@ -1,5 +1,5 @@
 name: Wafsmp-VerAct
-version: '1.13-SNAPSHOT'
+version: '1.14-SNAPSHOT'
 main: me.lynxid.wafsmpVerAct.WafsmpVerAct
 api-version: '1.19'
 load: STARTUP
@@ -9,8 +9,11 @@ website: wafcorp.org/smp
 commands:
   rules:
     description: Shows the rules of the WSMP
+    permission: wafsmp.member
     usage: /<command> [p2|p3|accept]
   setjoinmessage:
+    permission: wafsmp.setjoinmessage
+    permission-message: You do not have permission to use this command.
     description: Changes the join message
     usage: /<command> [new join message
   test:
@@ -21,4 +24,27 @@ commands:
     usage: /<command>
   map:
     description: Sends a link for the server map
+    permission: wafsmp.member
     usage: /<command>
+  reviewrules:
+    aliases: rrules
+    permission: wafsmp.rules
+    permission-message: You do not have permission to use this command.
+    description: Shows the rules of the WSMP
+    usage: /<command> [player]
+Permissions:
+  wafsmp.rules:
+    description: Allows you to use the command /reviewrules
+    default: op
+  wafsmp.setjoinmessage:
+    description: Allows you to use the command /setjoinmessage
+    default: op
+  wafsmp.member:
+    description: Permissions for base players
+    default: true
+  wafsmp.*:
+    description: Wildcard permission
+    default: op
+    children:
+      wafsmp.rules: true
+      wafsmp.setjoinmessage: true

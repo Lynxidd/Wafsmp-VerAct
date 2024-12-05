@@ -11,21 +11,21 @@ import static org.bukkit.Bukkit.getLogger;
 public class PlayerFile {
 
 //    private static File file;
-    public static File userdata;
+    public static File userData;
     public static String date;
 
-
-    public static void setup() {
-
+    public static void time() {
         Date now = new Date();
         SimpleDateFormat format = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
         date = format.format(now);
+    }
 
-        userdata = new File(Bukkit.getServer().getPluginManager().getPlugin("Wafsmp-VerAct").getDataFolder(), File.separator + "UserData");
+    public static void setup() {
+        userData = new File(Bukkit.getServer().getPluginManager().getPlugin("Wafsmp-VerAct").getDataFolder(), File.separator + "UserData");
 
-        if (!userdata.exists()) {
+        if (!userData.exists()) {
             getLogger().info("[Wafsmp-VerAct] userdata folder not found, attempting to recreate");
-            userdata.mkdir();
+            userData.mkdir();
         }
 
     }

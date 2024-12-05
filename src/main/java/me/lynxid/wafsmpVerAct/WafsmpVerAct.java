@@ -30,9 +30,10 @@ public final class WafsmpVerAct extends JavaPlugin implements Listener {
         getServer().getPluginManager().registerEvents(this, this);
         getServer().getPluginManager().registerEvents(new JoinLeaveListener(this), this);
         getServer().getPluginManager().registerEvents(new JoinListener(),this);
+        getCommand("reviewrules").setExecutor(new Reviewrules());
         getCommand("rules").setExecutor(new Rulescommand());
         getCommand("setjoinmessage").setExecutor(new SetMessageCommand(this));
-        getCommand("test").setExecutor(new testcommand());
+        getCommand("test").setExecutor(new testcommand(this));
         getCommand("pReload").setExecutor(new Reloadcommand());
         getCommand("map").setExecutor(new Mapcommand(this));
     }
