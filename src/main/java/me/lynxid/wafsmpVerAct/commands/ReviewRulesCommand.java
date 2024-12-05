@@ -16,7 +16,7 @@ import static me.lynxid.wafsmpVerAct.files.PlayerFile.date;
 import static me.lynxid.wafsmpVerAct.files.PlayerFile.userData;
 import static org.bukkit.Bukkit.getServer;
 
-public class Reviewrules implements CommandExecutor {
+public class ReviewRulesCommand implements CommandExecutor {
 //    private static Player target;
 
     @Override

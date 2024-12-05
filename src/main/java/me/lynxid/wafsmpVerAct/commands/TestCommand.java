@@ -23,12 +23,12 @@ import static me.lynxid.wafsmpVerAct.files.PlayerFile.date;
 import static me.lynxid.wafsmpVerAct.files.PlayerFile.userData;
 import static org.bukkit.Bukkit.*;
 
-public class testcommand implements CommandExecutor {
+public class TestCommand implements CommandExecutor {
 
 
     private final WafsmpVerAct plugin;
 
-    public testcommand(WafsmpVerAct plugin) {
+    public TestCommand(WafsmpVerAct plugin) {
         this.plugin = plugin;
     }
 

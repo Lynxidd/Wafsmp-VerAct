@@ -10,11 +10,11 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-public class Mapcommand implements CommandExecutor {
+public class MapCommand implements CommandExecutor {
 
     private  final WafsmpVerAct plugin;
 
-    public Mapcommand(WafsmpVerAct plugin) {
+    public MapCommand(WafsmpVerAct plugin) {
         this.plugin = plugin;
     }
 

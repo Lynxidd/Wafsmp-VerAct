@@ -22,7 +22,7 @@ import java.util.UUID;
 import static me.lynxid.wafsmpVerAct.files.PlayerFile.date;
 import static me.lynxid.wafsmpVerAct.files.PlayerFile.userData;
 
-public class Rulescommand implements CommandExecutor {
+public class RulesCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] strings) {
