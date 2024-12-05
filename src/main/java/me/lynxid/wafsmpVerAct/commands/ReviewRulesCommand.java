@@ -7,6 +7,7 @@ import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,13 +15,14 @@ import java.util.UUID;
 
 import static me.lynxid.wafsmpVerAct.files.PlayerFile.date;
 import static me.lynxid.wafsmpVerAct.files.PlayerFile.userData;
+import static org.bukkit.Bukkit.getLogger;
 import static org.bukkit.Bukkit.getServer;
 
 public class ReviewRulesCommand implements CommandExecutor {
 //    private static Player target;
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String s, String[] strings) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, String[] strings) {
 
         if (strings.length == 0) {
             sender.sendMessage("Usage: /reviewrules <player>");
@@ -45,7 +47,7 @@ public class ReviewRulesCommand implements CommandExecutor {
                     playerData.save(file);
                     sender.sendMessage("Set Accepted Rules to False");
                 } catch (IOException | InvalidConfigurationException i) {
-                    i.printStackTrace();
+                    getLogger().severe(i.toString());
                 }
             }
             return true;

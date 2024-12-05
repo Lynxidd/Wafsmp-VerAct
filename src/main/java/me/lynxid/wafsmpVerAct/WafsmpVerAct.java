@@ -8,6 +8,8 @@ import me.lynxid.wafsmpVerAct.listeners.JoinListener;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.Objects;
+
 public final class WafsmpVerAct extends JavaPlugin implements Listener {
 
 
@@ -30,12 +32,12 @@ public final class WafsmpVerAct extends JavaPlugin implements Listener {
         getServer().getPluginManager().registerEvents(this, this);
         getServer().getPluginManager().registerEvents(new JoinLeaveListener(this), this);
         getServer().getPluginManager().registerEvents(new JoinListener(),this);
-        getCommand("reviewrules").setExecutor(new ReviewRulesCommand());
-        getCommand("rules").setExecutor(new RulesCommand());
-        getCommand("setjoinmessage").setExecutor(new SetMessageCommand(this));
-        getCommand("test").setExecutor(new TestCommand(this));
-        getCommand("pReload").setExecutor(new ReloadCommand());
-        getCommand("map").setExecutor(new MapCommand(this));
+        Objects.requireNonNull(getCommand("reviewrules")).setExecutor(new ReviewRulesCommand());
+        Objects.requireNonNull(getCommand("rules")).setExecutor(new RulesCommand());
+        Objects.requireNonNull(getCommand("setjoinmessage")).setExecutor(new SetMessageCommand(this));
+        Objects.requireNonNull(getCommand("test")).setExecutor(new TestCommand(this));
+        Objects.requireNonNull(getCommand("pReload")).setExecutor(new ReloadCommand());
+        Objects.requireNonNull(getCommand("map")).setExecutor(new MapCommand(this));
     }
 
 }

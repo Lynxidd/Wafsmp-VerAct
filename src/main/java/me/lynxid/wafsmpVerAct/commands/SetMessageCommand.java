@@ -4,6 +4,7 @@ import me.lynxid.wafsmpVerAct.WafsmpVerAct;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.jetbrains.annotations.NotNull;
 
 public class SetMessageCommand implements CommandExecutor {
 
@@ -14,7 +15,7 @@ public class SetMessageCommand implements CommandExecutor {
     }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String s, String[] strings) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, String[] strings) {
 
         if (strings.length > 0){
             StringBuilder message = new StringBuilder();

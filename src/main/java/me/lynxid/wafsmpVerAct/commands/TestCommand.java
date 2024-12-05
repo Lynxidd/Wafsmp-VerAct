@@ -16,9 +16,11 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitScheduler;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.UUID;
 
 import static me.lynxid.wafsmpVerAct.files.PlayerFile.date;
@@ -35,10 +37,10 @@ public class TestCommand implements CommandExecutor {
     }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String s, String[] strings) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, String[] strings) {
 
         if (strings.length == 0) {
-            sender.sendMessage(CustomConfig.get().getString("test"));
+            sender.sendMessage(Objects.requireNonNull(CustomConfig.get().getString("test")));
             return true;
         }
 
@@ -59,7 +61,7 @@ public class TestCommand implements CommandExecutor {
                     playerData.save(file);
                     sender.sendMessage("Set Accepted Rules to False");
                 } catch (IOException | InvalidConfigurationException i) {
-                    i.printStackTrace();
+                    getLogger().severe(i.toString());
                 }
 
                 BukkitScheduler scheduler = Bukkit.getScheduler();

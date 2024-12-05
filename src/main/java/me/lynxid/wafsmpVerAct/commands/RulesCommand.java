@@ -14,6 +14,7 @@ import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,11 +22,12 @@ import java.util.UUID;
 
 import static me.lynxid.wafsmpVerAct.files.PlayerFile.date;
 import static me.lynxid.wafsmpVerAct.files.PlayerFile.userData;
+import static org.bukkit.Bukkit.getLogger;
 
 public class RulesCommand implements CommandExecutor {
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String s, String[] strings) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, String[] strings) {
 
         Player p = (Player) sender;
 
@@ -150,7 +152,7 @@ public class RulesCommand implements CommandExecutor {
                 playerData.set("Time Accepted", date);
                 playerData.save(file);
             } catch (IOException | InvalidConfigurationException i) {
-                i.printStackTrace();
+                getLogger().severe(i.toString());
             }
         }
 
