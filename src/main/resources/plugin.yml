@@ -32,6 +32,10 @@ commands:
     permission-message: You do not have permission to use this command.
     description: Shows the rules of the WSMP
     usage: /<command> [player]
+  Activity:
+    permission: wafsmp.member
+    description: Shows your activity over the last month.
+    usage: /<command>
 Permissions:
   wafsmp.rules:
     description: Allows you to use the command /reviewrules

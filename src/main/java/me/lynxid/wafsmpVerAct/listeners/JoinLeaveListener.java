@@ -38,7 +38,6 @@ public class JoinLeaveListener implements Listener {
             joinMessage = joinMessage.replace("%player%", e.getPlayer().getDisplayName());
             e.setJoinMessage(ChatColor.translateAlternateColorCodes('&', joinMessage));
         } else {
-
             e.setJoinMessage(" ");
             e.getPlayer().sendMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "Please read and accept the rules!!");
 
