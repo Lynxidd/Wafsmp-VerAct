@@ -33,4 +33,13 @@ public class PlayerFile {
         }
 
     }
+
+    public static void getPlayerData() {
+
+        //code goes here
+        // use this later as PlayerFile.getPlayerData()
+        // :D hii :3 hoiiiiii
+
+    }
+
 }
