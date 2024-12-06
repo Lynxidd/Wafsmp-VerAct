@@ -31,8 +31,8 @@ public class RulesCommand implements CommandExecutor {
 
         Player p = (Player) sender;
 
-        UUID playeru = p.getUniqueId();
-        File file = new File(userData, File.separator + playeru + ".yml");
+        UUID playerId = p.getUniqueId();
+        File file = new File(userData, File.separator + playerId + ".yml");
         FileConfiguration playerData = YamlConfiguration.loadConfiguration(file);
 
         if (strings.length < 1) {

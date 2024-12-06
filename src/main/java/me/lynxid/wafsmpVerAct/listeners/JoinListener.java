@@ -12,6 +12,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.UUID;
 
 import static me.lynxid.wafsmpVerAct.files.PlayerFile.date;
@@ -24,28 +25,32 @@ public class JoinListener implements Listener {
     public void onJoin(PlayerJoinEvent e){
 
         Player player = e.getPlayer();
-        UUID playeru = player.getUniqueId();
-        String playern = player.getDisplayName();
+        UUID playerId = player.getUniqueId();
+        String playerName = player.getDisplayName();
 
-        File UserData = new File(Bukkit.getServer().getPluginManager().getPlugin("Wafsmp-VerAct").getDataFolder(), File.separator + "UserData");
-        File file = new File(UserData, File.separator + playeru + ".yml");
+        File userData = new File(Objects.requireNonNull(Bukkit.getServer().getPluginManager().getPlugin("Wafsmp-VerAct")).getDataFolder(), File.separator + "UserData");
+        File file = new File(userData, File.separator + playerId + ".yml");
         FileConfiguration playerData = YamlConfiguration.loadConfiguration(file);
         if (!file.exists()) {
             getLogger().info("[Wafsmp-VerAct] " + e.getPlayer().getDisplayName() + " does not have a config file! Attempting to generate a new one!");
             try {
-                file.createNewFile();
-            } catch (IOException i) {
-                i.printStackTrace();
+                if (file.createNewFile())
+                {
+                    // It is impossible for this to happen, it's just here to get rid of the stupid warning
+                    getLogger().info("File already exists!");
+                }
+            } catch (IOException | SecurityException i) {
+                getLogger().severe(i.toString());
             }
 
             try {
                 PlayerFile.time();
                 playerData.load(file);
-                playerData.set("Player Name", playern);
+                playerData.set("Player Name", playerName);
                 playerData.set("Migrated date(dd-MM-yyyy)", date);
                 playerData.save(file);
             } catch (IOException | InvalidConfigurationException i) {
-                i.printStackTrace();
+                getLogger().severe(i.toString());
             }
 
         }

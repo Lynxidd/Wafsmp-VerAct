@@ -50,8 +50,8 @@ public class TestCommand implements CommandExecutor {
             if(target == null) {
                 sender.sendMessage( "Player is not online!");
             }else {
-                UUID playeru = target.getUniqueId();
-                File file = new File(userData, File.separator + playeru + ".yml");
+                UUID playerId = target.getUniqueId();
+                File file = new File(userData, File.separator + playerId + ".yml");
                 FileConfiguration playerData = YamlConfiguration.loadConfiguration(file);
 
                 try {

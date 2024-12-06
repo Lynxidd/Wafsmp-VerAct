@@ -29,20 +29,20 @@ public class JoinLeaveListener implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
 
-        String joinmessage = this.plugin.getConfig().getString("join-message");
-        UUID playeru = e.getPlayer().getUniqueId();
-        File file = new File(userData, File.separator + playeru + ".yml");
+        String joinMessage = this.plugin.getConfig().getString("join-message");
+        UUID playerId = e.getPlayer().getUniqueId();
+        File file = new File(userData, File.separator + playerId + ".yml");
         FileConfiguration playerData = YamlConfiguration.loadConfiguration(file);
 
-        if (joinmessage != null || playerData.getBoolean("Accepted Rules") ) {
-            joinmessage = joinmessage.replace("%player%", e.getPlayer().getDisplayName());
-            e.setJoinMessage(ChatColor.translateAlternateColorCodes('&', joinmessage));
+        if (joinMessage != null && playerData.getBoolean("Accepted Rules") ) {
+            joinMessage = joinMessage.replace("%player%", e.getPlayer().getDisplayName());
+            e.setJoinMessage(ChatColor.translateAlternateColorCodes('&', joinMessage));
         } else {
 
             e.setJoinMessage(" ");
             e.getPlayer().sendMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "Please read and accept the rules!!");
 
-             TextComponent msg = new TextComponent("[Click here]");
+            TextComponent msg = new TextComponent("[Click here]");
             msg.setColor(ChatColor.DARK_GREEN.asBungee());
             msg.setBold(true);
 
