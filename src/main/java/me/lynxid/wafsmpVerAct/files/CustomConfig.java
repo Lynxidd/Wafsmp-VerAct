@@ -7,6 +7,9 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
+
+import static org.bukkit.Bukkit.getLogger;
 
 public class CustomConfig {
 
@@ -14,13 +17,17 @@ public class CustomConfig {
     private static FileConfiguration customFile;
 
     public static void setup(){
-        file = new File(Bukkit.getServer().getPluginManager().getPlugin("Wafsmp-VerAct").getDataFolder(), "customconfig.yml");
+        file = new File(Objects.requireNonNull(Bukkit.getServer().getPluginManager().getPlugin("Wafsmp-VerAct")).getDataFolder(), "customconfig.yml");
 
         if (!file.exists()){
             try{
-                file.createNewFile();
-            } catch (IOException e) {
-              //
+                if (file.createNewFile())
+                {
+                    // It is impossible for this to happen, it's just here to get rid of the stupid warning
+                    getLogger().info("File already exists!");
+                }
+            } catch (IOException | SecurityException i) {
+                getLogger().severe(i.toString());
             }
 
 

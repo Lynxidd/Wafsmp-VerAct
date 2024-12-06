@@ -5,6 +5,7 @@ import org.bukkit.Bukkit;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 import static org.bukkit.Bukkit.getLogger;
 
@@ -21,11 +22,14 @@ public class PlayerFile {
     }
 
     public static void setup() {
-        userData = new File(Bukkit.getServer().getPluginManager().getPlugin("Wafsmp-VerAct").getDataFolder(), File.separator + "UserData");
+        userData = new File(Objects.requireNonNull(Bukkit.getServer().getPluginManager().getPlugin("Wafsmp-VerAct")).getDataFolder(), File.separator + "UserData");
 
         if (!userData.exists()) {
             getLogger().info("[Wafsmp-VerAct] userdata folder not found, attempting to recreate");
-            userData.mkdir();
+            if (!userData.mkdir())
+            {
+                getLogger().info("Directory already exists!");
+            }
         }
 
     }

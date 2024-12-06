@@ -28,7 +28,7 @@ public class SetMessageCommand implements CommandExecutor {
             sender.sendMessage("Join message set to: " + message);
 
         }else{
-            sender.sendMessage("you must provide a new message!");
+            sender.sendMessage("You must provide a new message!");
         }
 
         return true;
