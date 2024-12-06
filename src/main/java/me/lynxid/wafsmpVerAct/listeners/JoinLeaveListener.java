@@ -31,14 +31,13 @@ public class JoinLeaveListener implements Listener {
 
         String joinmessage = this.plugin.getConfig().getString("join-message");
         UUID playeru = e.getPlayer().getUniqueId();
-        File file = new File(userData, File.separator + playeru + ".yml");
+        File file = new File(userData, File.separator +  playeru + ".yml");
         FileConfiguration playerData = YamlConfiguration.loadConfiguration(file);
 
-        if (joinmessage != null || playerData.getBoolean("Accepted Rules") ) {
+        if (joinmessage != null && playerData.getBoolean("Accepted Rules")) {
             joinmessage = joinmessage.replace("%player%", e.getPlayer().getDisplayName());
             e.setJoinMessage(ChatColor.translateAlternateColorCodes('&', joinmessage));
         } else {
-
             e.setJoinMessage(" ");
             e.getPlayer().sendMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "Please read and accept the rules!!");
 

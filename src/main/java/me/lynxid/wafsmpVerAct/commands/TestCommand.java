@@ -54,6 +54,8 @@ public class TestCommand implements CommandExecutor {
                 File file = new File(userData, File.separator + playeru + ".yml");
                 FileConfiguration playerData = YamlConfiguration.loadConfiguration(file);
 
+
+
                 try {
                     playerData.load(file);
                     playerData.set("Accepted Rules", false);
@@ -66,6 +68,7 @@ public class TestCommand implements CommandExecutor {
 
                 BukkitScheduler scheduler = Bukkit.getScheduler();
                 scheduler.runTaskTimer(plugin, task -> {
+
 
                     target.sendMessage(" ");
                     target.sendMessage(" ");
