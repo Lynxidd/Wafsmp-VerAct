@@ -16,6 +16,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.UUID;
 
 import static me.lynxid.wafsmpVerAct.files.PlayerFile.date;
@@ -36,7 +37,7 @@ public class ReviewRulesCommand implements CommandExecutor {
 
         if(strings.length == 1) {
             Player target = getServer().getPlayer(strings[0]);
-            String playerN = getServer().getPlayer(strings[0]).getDisplayName();
+            String playerN = Objects.requireNonNull(getServer().getPlayer(strings[0])).getDisplayName();
 
             if(target == null) {
                 sender.sendMessage( "Player is not online!");

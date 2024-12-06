@@ -26,20 +26,9 @@ public class PlayerFile {
 
         if (!userData.exists()) {
             getLogger().info("[Wafsmp-VerAct] userdata folder not found, attempting to recreate");
-            if (!userData.mkdir())
-            {
+            if (!userData.mkdir()) {
                 getLogger().info("Directory already exists!");
             }
         }
-
     }
-
-    public static void getPlayerData() {
-
-        //code goes here
-        // use this later as PlayerFile.getPlayerData()
-        // :D hii :3 hoiiiiii
-
-    }
-
 }
