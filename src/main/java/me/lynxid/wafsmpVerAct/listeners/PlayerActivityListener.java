@@ -1,6 +1,5 @@
 package me.lynxid.wafsmpVerAct.listeners;
 
-import me.lynxid.wafsmpVerAct.WafsmpVerAct;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -9,6 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitScheduler;
 
 import java.io.File;
@@ -29,7 +29,7 @@ public class PlayerActivityListener implements Listener {
 
         if (playerData.getBoolean("Accepted Rules")) {
             BukkitScheduler scheduler = Bukkit.getScheduler();
-            scheduler.runTaskTimer(this, task -> {
+            scheduler.runTaskTimer((Plugin) this, task -> {
                 try {
                     playerData.load(file);
                     playerData.set("Active Time", +1);
