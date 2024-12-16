@@ -28,18 +28,19 @@ public class PlayerActivityListener implements Listener {
         FileConfiguration playerData = YamlConfiguration.loadConfiguration(file);
 
         if (playerData.getBoolean("Accepted Rules")) {
-            BukkitScheduler scheduler = Bukkit.getScheduler();
-            scheduler.runTaskTimer((Plugin) this, task -> {
-                try {
-                    playerData.load(file);
-                    playerData.set("Active Time", +1);
-                    playerData.save(file);
-                    player.sendMessage( "Your activity time "+ playerData.getString("Active Time"));
-                    }
-                catch (IOException | InvalidConfigurationException i) {
-                    getLogger().severe(i.toString());
-                    }
-                }, 0L, 20L );
+//            BukkitScheduler scheduler = Bukkit.getScheduler();
+//            scheduler.runTaskTimer((Plugin) this, task -> {
+//                try {
+//                    playerData.load(file);
+//                    playerData.set("Active Time", "+1");
+//                    playerData.save(file);
+//                    player.sendMessage( "Your activity time "+ playerData.getString("Active Time"));
+//                    }
+//                catch (IOException | InvalidConfigurationException i) {
+//                    getLogger().severe(i.toString());
+//                    }
+//                }, 0L, 20L );
+            e.getPlayer().sendMessage(":3");
         } else {
             e.setCancelled(true);
         }
