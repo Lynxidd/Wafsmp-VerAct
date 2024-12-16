@@ -1,7 +1,6 @@
 package me.lynxid.wafsmpVerAct;
 
 import me.lynxid.wafsmpVerAct.commands.*;
-import me.lynxid.wafsmpVerAct.files.CustomConfig;
 import me.lynxid.wafsmpVerAct.files.PlayerFile;
 import me.lynxid.wafsmpVerAct.listeners.JoinLeaveListener;
 import me.lynxid.wafsmpVerAct.listeners.JoinListener;
@@ -22,11 +21,6 @@ public final class WafsmpVerAct extends JavaPlugin implements Listener {
 
         saveDefaultConfig();
 
-        CustomConfig.setup();
-        CustomConfig.get().addDefault("test", "this is the default test message");
-        CustomConfig.get().options().copyDefaults(true);
-        CustomConfig.save();
-
         PlayerFile.setup();
 
 
@@ -37,9 +31,7 @@ public final class WafsmpVerAct extends JavaPlugin implements Listener {
         Objects.requireNonNull(getCommand("activity")).setExecutor(new ActivityCommand());
         Objects.requireNonNull(getCommand("reviewrules")).setExecutor(new ReviewRulesCommand());
         Objects.requireNonNull(getCommand("rules")).setExecutor(new RulesCommand());
-        Objects.requireNonNull(getCommand("setjoinmessage")).setExecutor(new SetMessageCommand(this));
         Objects.requireNonNull(getCommand("test")).setExecutor(new TestCommand(this));
-        Objects.requireNonNull(getCommand("pReload")).setExecutor(new ReloadCommand());
         Objects.requireNonNull(getCommand("map")).setExecutor(new MapCommand(this));
     }
 

@@ -1,7 +1,6 @@
 package me.lynxid.wafsmpVerAct.commands;
 
 import me.lynxid.wafsmpVerAct.WafsmpVerAct;
-import me.lynxid.wafsmpVerAct.files.CustomConfig;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -20,7 +19,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Objects;
 import java.util.UUID;
 
 import static me.lynxid.wafsmpVerAct.files.PlayerFile.date;
@@ -40,7 +38,7 @@ public class TestCommand implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, String[] strings) {
 
         if (strings.length == 0) {
-            sender.sendMessage(Objects.requireNonNull(CustomConfig.get().getString("test")));
+            sender.sendMessage("ok");
             return true;
         }
 

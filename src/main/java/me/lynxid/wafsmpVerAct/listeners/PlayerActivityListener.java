@@ -1,22 +1,16 @@
 package me.lynxid.wafsmpVerAct.listeners;
 
-import org.bukkit.Bukkit;
-import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.plugin.Plugin;
-import org.bukkit.scheduler.BukkitScheduler;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.UUID;
 
 import static me.lynxid.wafsmpVerAct.files.PlayerFile.userData;
-import static org.bukkit.Bukkit.getLogger;
 
 public class PlayerActivityListener implements Listener {
 
