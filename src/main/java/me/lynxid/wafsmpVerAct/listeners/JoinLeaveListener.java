@@ -57,7 +57,7 @@ public class JoinLeaveListener implements Listener {
         }
 
         if (e.getPlayer().getDisplayName().equals(playerData.getString("Player Name"))){
-            e.getPlayer().sendMessage("yippee");
+            e.getPlayer().sendMessage(" ");
         } else {
 
             playerData.load(file);
