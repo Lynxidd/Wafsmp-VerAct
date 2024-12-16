@@ -13,6 +13,7 @@ public class ActivityCommand implements CommandExecutor {
         if (sender instanceof Player p) {
 
             p.sendMessage("fuck you");
+            // Please do remaining work in this branch
 
         }
 
