@@ -1,7 +1,7 @@
 name: Wafsmp-VerAct
-version: '1.15-SNAPSHOT'
+version: '1.0'
 main: me.lynxid.wafsmpVerAct.WafsmpVerAct
-api-version: '1.19'
+api-version: '1.21'
 load: STARTUP
 authors: [ Lynxid ]
 description: A Plugin used by the WafflesSMP to verify users, and track activity.
@@ -11,16 +11,9 @@ commands:
     description: Shows the rules of the WSMP
     permission: wafsmp.member
     usage: /<command> [p2|p3|accept]
-  setjoinmessage:
-    permission: wafsmp.setjoinmessage
-    permission-message: You do not have permission to use this command.
-    description: Changes the join message
-    usage: /<command> [new join message
   test:
     description: Test
-    usage: /<command>
-  pReload:
-    description: Reloads the Custom Config
+    permission: wafsmp-test
     usage: /<command>
   map:
     description: Sends a link for the server map
@@ -33,7 +26,7 @@ commands:
     description: Shows the rules of the WSMP
     usage: /<command> [player]
   Activity:
-    permission: wafsmp.member
+    permission: wafsmp.test
     description: Shows your activity over the last month.
     usage: /<command>
 Permissions:
@@ -52,3 +45,4 @@ Permissions:
     children:
       wafsmp.rules: true
       wafsmp.setjoinmessage: true
+      wafsmp.test: true
