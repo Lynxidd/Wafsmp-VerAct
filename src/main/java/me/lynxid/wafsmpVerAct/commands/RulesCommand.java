@@ -1,12 +1,12 @@
 package me.lynxid.wafsmpVerAct.commands;
 
 import me.lynxid.wafsmpVerAct.files.PlayerFile;
+import me.lynxid.wafsmpVerAct.files.RulesFile;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.chat.hover.content.Text;
 import org.bukkit.ChatColor;
-import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -22,6 +22,7 @@ import java.util.UUID;
 
 import static me.lynxid.wafsmpVerAct.files.PlayerFile.date;
 import static me.lynxid.wafsmpVerAct.files.PlayerFile.userData;
+import static me.lynxid.wafsmpVerAct.listeners.RulesListener.effectsTake;
 import static org.bukkit.Bukkit.getLogger;
 
 public class RulesCommand implements CommandExecutor {
@@ -35,9 +36,15 @@ public class RulesCommand implements CommandExecutor {
         File file = new File(userData, File.separator + playerId + ".yml");
         FileConfiguration playerData = YamlConfiguration.loadConfiguration(file);
 
-        if (strings.length < 1) {
-            p.setCanPickupItems(false);
+        String logo = RulesFile.get().getString("logo");
+        String rule1 = RulesFile.get().getString("rule1");
+        String rule2 = RulesFile.get().getString("rule2");
+        String rule3 = RulesFile.get().getString("rule3");
+        String rule4 = RulesFile.get().getString("rule4");
+        String rule5 = RulesFile.get().getString("rule5");
+        String rule6 = RulesFile.get().getString("rule6");
 
+        if (strings.length < 1) {
             p.sendMessage(" ");
             p.sendMessage(" ");
             p.sendMessage(" ");
@@ -46,17 +53,16 @@ public class RulesCommand implements CommandExecutor {
             p.sendMessage(" ");
             p.sendMessage(" ");
             p.sendMessage(" ");
-            p.sendMessage("\uE000");
+            p.sendMessage(logo + " ");
             p.sendMessage(" ");
             p.sendMessage(" ");
             p.sendMessage(" ");
             p.sendMessage(ChatColor.DARK_AQUA + "" + ChatColor.BOLD + "Rules of the WSMP");
             p.sendMessage(" ");
-            p.sendMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "Rule 1. " + ChatColor.WHITE + "Don’t do anything intended to make someone unhappy. Don’t make fun of people, and no racism, homophobia, transphobia, etc. While swearing is allowed (in moderation), slurs are NEVER allowed.");
+            p.sendMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "Rule 1. " + ChatColor.WHITE + rule1);
             p.sendMessage(" ");
-            p.sendMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "Rule 2. " + ChatColor.WHITE + "Minecraft is a game that lots of younger kids play. No NSFW, In chat or built on the server, Don’t talk about anything unpleasant or controversial. Everyone is here to play a game and have fun.");
+            p.sendMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "Rule 2. " + ChatColor.WHITE + rule2);
             p.sendMessage(" ");
-
 
             TextComponent msg = new TextComponent("[Next Page]");
             msg.setColor(ChatColor.DARK_GREEN.asBungee());
@@ -66,15 +72,15 @@ public class RulesCommand implements CommandExecutor {
             msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
                     new Text("Click to go to the next page")));
             p.spigot().sendMessage(msg);
+
         } else if (strings[0].equalsIgnoreCase("p2")) {
             p.sendMessage(" ");
             p.sendMessage(ChatColor.DARK_AQUA + "" + ChatColor.BOLD + "Rules of the WSMP");
             p.sendMessage(" ");
-            p.sendMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "Rule 3. " + ChatColor.WHITE + "All of the rules listed above apply everywhere in the server and are enforced by admins, but every player-made country has their own rules that their leaders enforce. Make sure that while in an in-game country, you follow their laws and international laws.");
+            p.sendMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "Rule 3. " + ChatColor.WHITE + rule3);
             p.sendMessage(" ");
-            p.sendMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "Rule 4. " + ChatColor.WHITE + "No cheating, hacking, or exploiting! Automatic farms are allowed but duping is not, the only things you can duplicate are sand/gravel/concrete and tnt, as these are non-renewable resources. Again any form of finding ores that wasn’t intended by Mojang is prohibited!");
+            p.sendMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "Rule 4. " + ChatColor.WHITE + rule4);
             p.sendMessage(" ");
-
 
             TextComponent msg2 = new TextComponent("[Previous Page] ");
             msg2.setColor(ChatColor.DARK_GREEN.asBungee());
@@ -97,11 +103,10 @@ public class RulesCommand implements CommandExecutor {
             p.sendMessage(" ");
             p.sendMessage(ChatColor.DARK_AQUA + "" + ChatColor.BOLD + "Rules of the WSMP");
             p.sendMessage(" ");
-            p.sendMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "Rule 5. " + ChatColor.WHITE + "This includes spam in chat or purposefully building at someone else’s base just to annoy them, or anything else meant to annoy someone.");
+            p.sendMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "Rule 5. " + ChatColor.WHITE + rule5);
             p.sendMessage(" ");
-            p.sendMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "Rule 6. " + ChatColor.WHITE + "Don’t share anyone else’s personal information, no discussion of illegal activity. the usage or discussion of cracked/free Minecraft accounts will get you banned!");
+            p.sendMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "Rule 6. " + ChatColor.WHITE + rule6);
             p.sendMessage(" ");
-
 
             TextComponent msg2 = new TextComponent("[Previous Page] ");
             msg2.setColor(ChatColor.DARK_GREEN.asBungee());
@@ -121,9 +126,6 @@ public class RulesCommand implements CommandExecutor {
             p.spigot().sendMessage(msg2, msg);
 
         } else if (strings[0].equalsIgnoreCase("accept")) {
-
-            p.setCanPickupItems(true);
-            p.setGameMode(GameMode.SURVIVAL);
             p.sendMessage(" ");
             p.sendMessage(" ");
             p.sendMessage(" ");
@@ -144,6 +146,7 @@ public class RulesCommand implements CommandExecutor {
             p.sendMessage(" ");
             p.sendMessage(" ");
             sender.getServer().broadcastMessage(ChatColor.GOLD + "" + ChatColor.BOLD + p.getDisplayName() + " has accepted the rules! Welcome to the server!");
+            effectsTake();
 
             try {
                 PlayerFile.time();

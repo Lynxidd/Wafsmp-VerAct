@@ -2,8 +2,11 @@ package me.lynxid.wafsmpVerAct;
 
 import me.lynxid.wafsmpVerAct.commands.*;
 import me.lynxid.wafsmpVerAct.files.PlayerFile;
+import me.lynxid.wafsmpVerAct.files.RulesFile;
+import me.lynxid.wafsmpVerAct.listeners.ChatListener;
 import me.lynxid.wafsmpVerAct.listeners.JoinLeaveListener;
 import me.lynxid.wafsmpVerAct.listeners.JoinListener;
+import me.lynxid.wafsmpVerAct.listeners.RulesListener;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -19,16 +22,21 @@ public final class WafsmpVerAct extends JavaPlugin implements Listener {
         getLogger().info("Wafsmp VerAct has started!");
 
         saveDefaultConfig();
+        RulesFile.setup();
+        RulesFile.setDefault();
+        RulesFile.save();
 
         PlayerFile.setup();
+        RulesFile.reload();
 
         getServer().getPluginManager().registerEvents(this, this);
         getServer().getPluginManager().registerEvents(new JoinLeaveListener(this), this);
         getServer().getPluginManager().registerEvents(new JoinListener(),this);
+        getServer().getPluginManager().registerEvents(new RulesListener(),this);
+        getServer().getPluginManager().registerEvents(new ChatListener(),this);
         Objects.requireNonNull(getCommand("reviewrules")).setExecutor(new ReviewRulesCommand());
         Objects.requireNonNull(getCommand("rules")).setExecutor(new RulesCommand());
         Objects.requireNonNull(getCommand("test")).setExecutor(new TestCommand(this));
         Objects.requireNonNull(getCommand("map")).setExecutor(new MapCommand(this));
     }
-
 }

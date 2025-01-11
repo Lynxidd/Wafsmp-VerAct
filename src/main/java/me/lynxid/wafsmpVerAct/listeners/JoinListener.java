@@ -20,9 +20,8 @@ import static org.bukkit.Bukkit.getLogger;
 
 public class JoinListener implements Listener {
 
-
     @EventHandler
-    public void onJoin(PlayerJoinEvent e){
+    public void onJoin(PlayerJoinEvent e) throws IOException, InvalidConfigurationException {
 
         Player player = e.getPlayer();
         UUID playerId = player.getUniqueId();
@@ -31,10 +30,11 @@ public class JoinListener implements Listener {
         File userData = new File(Objects.requireNonNull(Bukkit.getServer().getPluginManager().getPlugin("Wafsmp-VerAct")).getDataFolder(), File.separator + "UserData");
         File file = new File(userData, File.separator + playerId + ".yml");
         FileConfiguration playerData = YamlConfiguration.loadConfiguration(file);
+
         if (!file.exists()) {
             getLogger().info("[Wafsmp-VerAct] " + e.getPlayer().getDisplayName() + " does not have a config file! Attempting to generate a new one!");
             try {
-                if (file.createNewFile())
+                if (!file.createNewFile())
                 {
                     // It is impossible for this to happen, it's just here to get rid of the stupid warning
                     getLogger().info("File already exists!");
@@ -54,7 +54,13 @@ public class JoinListener implements Listener {
             }
         }
 
-
+        if (e.getPlayer().getDisplayName().equals(playerData.getString("Player Name"))){
+            e.getPlayer().sendMessage(" ");
+        } else {
+            playerData.load(file);
+            playerData.set("Player Name", playerName);
+            playerData.save(file);
+        }
 
 
     }
