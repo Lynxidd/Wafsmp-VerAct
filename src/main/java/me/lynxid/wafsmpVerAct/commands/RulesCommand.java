@@ -19,6 +19,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 
 import static me.lynxid.wafsmpVerAct.files.PlayerFile.date;
@@ -45,6 +46,8 @@ public class RulesCommand implements CommandExecutor {
         String rule4 = RulesFile.get().getString("rule4");
         String rule5 = RulesFile.get().getString("rule5");
         String rule6 = RulesFile.get().getString("rule6");
+        List<String> rulesList = RulesFile.get().getStringList("rules");
+
 
         if (strings.length < 1 || strings[0].equalsIgnoreCase("p1")) {
             // TODO: Store that the player is on page 1
@@ -97,6 +100,8 @@ public class RulesCommand implements CommandExecutor {
 
         p.spigot().sendMessage(msg);
 
+        p.sendMessage();
+
         if (true) { // TODO: Make sure the player is still on page 1
             getServer().getScheduler().scheduleSyncDelayedTask((Plugin) this, () -> {
                 page1(p, logo, rule1, rule2);
@@ -104,6 +109,8 @@ public class RulesCommand implements CommandExecutor {
             }, 4L);
         }
     }
+
+
 
     public void page2(Player p, String logo, String rule3, String rule4) {
         sendRulesHeader(p, logo);
