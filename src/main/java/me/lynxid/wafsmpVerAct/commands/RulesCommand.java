@@ -67,7 +67,7 @@ public class RulesCommand implements CommandExecutor {
         else if (strings[0].equalsIgnoreCase("accept")) {
             pdc.set(storedRulesPage, PersistentDataType.INTEGER, -2);
 
-            p.sendMessage("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+            p.sendMessage(" \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n");
             sender.getServer().broadcastMessage(ChatColor.GOLD + "" + ChatColor.BOLD + p.getDisplayName() + " has accepted the rules! Welcome to the server!");
             effectsTake();
 
@@ -95,8 +95,8 @@ public class RulesCommand implements CommandExecutor {
 
             pdc.set(storedRulesPage, PersistentDataType.INTEGER, pageNum);
 
-            String firstRule = rulesList.get(((pageNum - 1) * 2) + 1);
-            String secondRule = (((pageNum - 1) * 2) + 2 <= rulesList.size()) ? rulesList.get(((pageNum - 1) * 2) + 2) : "";
+            String firstRule = rulesList.get(((pageNum - 1) * 2));
+            String secondRule = (((pageNum - 1) * 2) + 1 <= rulesList.size()) ? rulesList.get(((pageNum - 1) * 2) + 1) : "";
             sendRulesPage(p, logo, firstRule, secondRule, pageNum, totalPages);
         }
 
@@ -104,15 +104,15 @@ public class RulesCommand implements CommandExecutor {
     }
 
     public void sendRulesHeader(Player p, String logo) {
-        p.sendMessage("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-        p.sendMessage(logo + "\n\n\n");
+        p.sendMessage(" \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n");
+        p.sendMessage(logo + " \n \n \n");
         p.sendMessage(ChatColor.DARK_AQUA + "" + ChatColor.BOLD + "Rules of the WSMP");
     }
 
     public void sendRulesPage(Player p, String logo, String firstRule, String secondRule, int page, int totalPages) {
         sendRulesHeader(p, logo);
-        p.sendMessage(ChatColor.GOLD + "\n" + ChatColor.BOLD + "Rule " + (((page - 1) * 2) + 1) + ". " + ChatColor.WHITE + firstRule);
-        if (!secondRule.isEmpty()) p.sendMessage(ChatColor.GOLD + "\n" + ChatColor.BOLD + "Rule " + (((page - 1) * 2) + 2) + ". " + ChatColor.WHITE + secondRule + "\n");
+        p.sendMessage(ChatColor.GOLD + " \n" + ChatColor.BOLD + "Rule " + (((page - 1) * 2) + 1) + ". " + ChatColor.WHITE + firstRule);
+        if (!secondRule.isEmpty()) p.sendMessage(ChatColor.GOLD + " \n" + ChatColor.BOLD + "Rule " + (((page - 1) * 2) + 2) + ". " + ChatColor.WHITE + secondRule + " \n");
 
         TextComponent previousPage = new TextComponent("");
         TextComponent nextPage = new TextComponent("");
