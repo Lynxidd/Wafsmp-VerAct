@@ -35,7 +35,7 @@ public final class WafsmpVerAct extends JavaPlugin implements Listener {
         getServer().getPluginManager().registerEvents(new RulesListener(),this);
         getServer().getPluginManager().registerEvents(new ChatListener(),this);
         Objects.requireNonNull(getCommand("reviewrules")).setExecutor(new ReviewRulesCommand());
-        Objects.requireNonNull(getCommand("rules")).setExecutor(new RulesCommand());
+        Objects.requireNonNull(getCommand("rules")).setExecutor(new RulesCommand(this));
         Objects.requireNonNull(getCommand("test")).setExecutor(new TestCommand(this));
         Objects.requireNonNull(getCommand("map")).setExecutor(new MapCommand(this));
     }
