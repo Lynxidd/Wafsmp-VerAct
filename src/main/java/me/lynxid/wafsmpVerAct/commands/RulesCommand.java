@@ -1,5 +1,6 @@
 package me.lynxid.wafsmpVerAct.commands;
 
+import me.lynxid.wafsmpVerAct.WafsmpVerAct;
 import me.lynxid.wafsmpVerAct.files.PlayerFile;
 import me.lynxid.wafsmpVerAct.files.RulesFile;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -17,7 +18,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
-import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -32,6 +32,12 @@ import static org.bukkit.Bukkit.getLogger;
 import static org.bukkit.Bukkit.getServer;
 
 public class RulesCommand implements CommandExecutor {
+
+    private final WafsmpVerAct plugin;
+
+    public RulesCommand(WafsmpVerAct plugin) {
+        this.plugin = plugin;
+    }
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, String[] strings) {
@@ -49,7 +55,7 @@ public class RulesCommand implements CommandExecutor {
         int totalPages = ((rulesList.size() % 2 == 0) ? rulesList.size() : rulesList.size() + 1) / 2;
 
         PersistentDataContainer pdc = p.getPersistentDataContainer();
-        NamespacedKey storedRulesPage = new NamespacedKey((Plugin) this, "currentRulesPage");
+        NamespacedKey storedRulesPage = new NamespacedKey(this.plugin, "currentRulesPage");
 
         if (strings.length < 1) {
             pdc.set(storedRulesPage, PersistentDataType.INTEGER, 1);
@@ -138,13 +144,13 @@ public class RulesCommand implements CommandExecutor {
 
         Integer currentRulesPage = 0;
         PersistentDataContainer pdc = p.getPersistentDataContainer();
-        NamespacedKey storedRulesPage = new NamespacedKey((Plugin) this, "currentRulesPage");
+        NamespacedKey storedRulesPage = new NamespacedKey(this.plugin, "currentRulesPage");
         if (pdc.has(storedRulesPage, PersistentDataType.INTEGER)) {
             currentRulesPage = pdc.get(storedRulesPage, PersistentDataType.INTEGER);
         }
 
         if (currentRulesPage != null && page == currentRulesPage) {
-            getServer().getScheduler().scheduleSyncDelayedTask((Plugin) this, () -> {
+            getServer().getScheduler().scheduleSyncDelayedTask(this.plugin, () -> {
                 sendRulesPage(p, logo, firstRule, secondRule, page, totalPages);
             }, 4L);
         }
