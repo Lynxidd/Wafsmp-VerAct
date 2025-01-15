@@ -22,16 +22,7 @@ public class ChatListener implements Listener {
         FileConfiguration playerData = YamlConfiguration.loadConfiguration(file);
         if (!playerData.getBoolean("Accepted Rules")) {
             e.setCancelled(true);
-        }
-    }
-
-    @EventHandler
-    public void onRulesCommand(AsyncPlayerChatEvent e) {
-        Player p = e.getPlayer();
-        if (e.getPlayer().performCommand("/rules")) {
-
-            p.sendMessage("stupid fucking wokrdf");
-
+            p.performCommand("rules"); //awful code alot of errors when run
         }
     }
 }
