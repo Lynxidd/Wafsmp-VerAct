@@ -1,10 +1,6 @@
 package me.lynxid.wafsmpVerAct.commands;
 
 import net.md_5.bungee.api.ChatColor;
-import net.md_5.bungee.api.chat.ClickEvent;
-import net.md_5.bungee.api.chat.HoverEvent;
-import net.md_5.bungee.api.chat.TextComponent;
-import net.md_5.bungee.api.chat.hover.content.Text;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -21,6 +17,7 @@ import java.util.UUID;
 
 import static me.lynxid.wafsmpVerAct.files.PlayerFile.date;
 import static me.lynxid.wafsmpVerAct.files.PlayerFile.userData;
+import static me.lynxid.wafsmpVerAct.files.RulesFile.effectsGive;
 import static org.bukkit.Bukkit.getLogger;
 import static org.bukkit.Bukkit.getServer;
 
@@ -56,48 +53,8 @@ public class ReviewRulesCommand implements CommandExecutor {
                     getLogger().severe(i.toString());
                 }
 
-                target.sendMessage(" ");
-                target.sendMessage(" ");
-                target.sendMessage(" ");
-                target.sendMessage(" ");
-                target.sendMessage(" ");
-                target.sendMessage(" ");
-                target.sendMessage(" ");
-                target.sendMessage(" ");
-                target.sendMessage(" ");
-                target.sendMessage(" ");
-                target.sendMessage(" ");
-                target.sendMessage(" ");
-                target.sendMessage(" ");
-                target.sendMessage(" ");
-                target.sendMessage(" ");
-                target.sendMessage(" ");
-                target.sendMessage(" ");
-                target.sendMessage(" ");
-                target.sendMessage(" ");
-                target.sendMessage(" ");
-                target.sendMessage(" ");
-                target.sendMessage(" ");
-                target.sendMessage(" ");
-                target.sendMessage(" ");
-                target.sendMessage("\uE000");
-                target.sendMessage(" ");
-                target.sendMessage(" ");
-                target.sendMessage(" ");
-                target.sendMessage(org.bukkit.ChatColor.DARK_AQUA + "" + org.bukkit.ChatColor.BOLD + "Rules of the WSMP");
-                target.sendMessage(" ");
-                target.sendMessage(org.bukkit.ChatColor.GOLD + "" + org.bukkit.ChatColor.BOLD + "Rule 1. " + org.bukkit.ChatColor.WHITE + "Don’t do anything intended to make someone unhappy. Don’t make fun of people, and no racism, homophobia, transphobia, etc. While swearing is allowed (in moderation), slurs are NEVER allowed.");
-                target.sendMessage(" ");
-                target.sendMessage(org.bukkit.ChatColor.GOLD + "" + org.bukkit.ChatColor.BOLD + "Rule 2. " + org.bukkit.ChatColor.WHITE + "Minecraft is a game that lots of younger kids play. No NSFW, In chat or built on the server, Don’t talk about anything unpleasant or controversial. Everyone is here to play a game and have fun.");
-                target.sendMessage(" ");
-                TextComponent msg = new TextComponent("[Next Page]");
-                msg.setColor(org.bukkit.ChatColor.DARK_GREEN.asBungee());
-                msg.setBold(true);
-
-                msg.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/rules p2"));
-                msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("Click to go to the next page")));
-                target.spigot().sendMessage(msg);
-
+                effectsGive(target);
+                target.performCommand("rules");
             }
             return true;
         }

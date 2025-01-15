@@ -6,7 +6,6 @@ import me.lynxid.wafsmpVerAct.files.RulesFile;
 import me.lynxid.wafsmpVerAct.listeners.ChatListener;
 import me.lynxid.wafsmpVerAct.listeners.JoinLeaveListener;
 import me.lynxid.wafsmpVerAct.listeners.JoinListener;
-import me.lynxid.wafsmpVerAct.listeners.RulesListener;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -32,11 +31,10 @@ public final class WafsmpVerAct extends JavaPlugin implements Listener {
         getServer().getPluginManager().registerEvents(this, this);
         getServer().getPluginManager().registerEvents(new JoinLeaveListener(this), this);
         getServer().getPluginManager().registerEvents(new JoinListener(),this);
-        getServer().getPluginManager().registerEvents(new RulesListener(),this);
         getServer().getPluginManager().registerEvents(new ChatListener(),this);
         Objects.requireNonNull(getCommand("reviewrules")).setExecutor(new ReviewRulesCommand());
         Objects.requireNonNull(getCommand("rules")).setExecutor(new RulesCommand(this));
-        Objects.requireNonNull(getCommand("test")).setExecutor(new TestCommand(this));
+        Objects.requireNonNull(getCommand("test")).setExecutor(new TestCommand());
         Objects.requireNonNull(getCommand("map")).setExecutor(new MapCommand(this));
     }
 }

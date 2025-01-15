@@ -27,7 +27,7 @@ import java.util.UUID;
 
 import static me.lynxid.wafsmpVerAct.files.PlayerFile.date;
 import static me.lynxid.wafsmpVerAct.files.PlayerFile.userData;
-import static me.lynxid.wafsmpVerAct.listeners.RulesListener.effectsTake;
+import static me.lynxid.wafsmpVerAct.files.RulesFile.effectsTake;
 import static org.bukkit.Bukkit.getLogger;
 import static org.bukkit.Bukkit.getServer;
 
@@ -69,7 +69,7 @@ public class RulesCommand implements CommandExecutor {
 
             p.sendMessage(" \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n");
             sender.getServer().broadcastMessage(ChatColor.GOLD + "" + ChatColor.BOLD + p.getDisplayName() + " has accepted the rules! Welcome to the server!");
-            effectsTake();
+            effectsTake(p);
 
             try {
                 PlayerFile.time();
@@ -150,9 +150,7 @@ public class RulesCommand implements CommandExecutor {
         }
 
         if (currentRulesPage != null && page == currentRulesPage) {
-            getServer().getScheduler().scheduleSyncDelayedTask(this.plugin, () -> {
-                sendRulesPage(p, logo, firstRule, secondRule, page, totalPages);
-            }, 4L);
+            getServer().getScheduler().scheduleSyncDelayedTask(this.plugin, () -> sendRulesPage(p, logo, firstRule, secondRule, page, totalPages), 4L);
         }
     }
 }

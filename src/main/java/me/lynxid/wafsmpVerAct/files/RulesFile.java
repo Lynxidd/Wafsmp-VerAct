@@ -2,8 +2,10 @@ package me.lynxid.wafsmpVerAct.files;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 
 import java.io.File;
 import java.io.IOException;
@@ -63,5 +65,19 @@ public class RulesFile {
         rulesList.add("All of the rules listed above apply everywhere in the server and are enforced by admins, but every player-made country has their own rules that their leaders enforce, and international laws (including no griefing / stealing) apply everywhere else. Make sure to follow the law.");
 
         RulesFile.get().set("rules", rulesList);
+    }
+
+    public static void effectsGive(Player p) {
+        p.setGameMode(GameMode.ADVENTURE);
+        p.setCanPickupItems(false);
+        p.setWalkSpeed(0);
+        p.setInvulnerable(true);
+    }
+
+    public static void effectsTake(Player p) {
+        p.setGameMode(GameMode.SURVIVAL);
+        p.setCanPickupItems(true);
+        p.setWalkSpeed(0.2F);
+        p.setInvulnerable(false);
     }
 }
