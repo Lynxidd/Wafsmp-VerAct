@@ -11,7 +11,6 @@ import static org.bukkit.Bukkit.getLogger;
 
 public class PlayerFile {
 
-//    private static File file;
     public static File userData;
     public static String date;
 

@@ -1,12 +1,14 @@
 package me.lynxid.wafsmpVerAct.commands;
 
+import me.lynxid.wafsmpVerAct.WafsmpVerAct;
 import me.lynxid.wafsmpVerAct.files.PlayerFile;
+import me.lynxid.wafsmpVerAct.files.RulesFile;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.chat.hover.content.Text;
 import org.bukkit.ChatColor;
-import org.bukkit.GameMode;
+import org.bukkit.NamespacedKey;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -14,17 +16,28 @@ import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 
 import static me.lynxid.wafsmpVerAct.files.PlayerFile.date;
 import static me.lynxid.wafsmpVerAct.files.PlayerFile.userData;
+import static me.lynxid.wafsmpVerAct.files.RulesFile.effectsTake;
 import static org.bukkit.Bukkit.getLogger;
+import static org.bukkit.Bukkit.getServer;
 
 public class RulesCommand implements CommandExecutor {
+
+    private final WafsmpVerAct plugin;
+
+    public RulesCommand(WafsmpVerAct plugin) {
+        this.plugin = plugin;
+    }
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, String[] strings) {
@@ -35,115 +48,28 @@ public class RulesCommand implements CommandExecutor {
         File file = new File(userData, File.separator + playerId + ".yml");
         FileConfiguration playerData = YamlConfiguration.loadConfiguration(file);
 
+        String logo = RulesFile.get().getString("logo");
+        List<String> rulesList = RulesFile.get().getStringList("rules");
+
+        if (rulesList.isEmpty()) return true;
+        int totalPages = ((rulesList.size() % 2 == 0) ? rulesList.size() : rulesList.size() + 1) / 2;
+
+        PersistentDataContainer pdc = p.getPersistentDataContainer();
+        NamespacedKey storedRulesPage = new NamespacedKey(this.plugin, "currentRulesPage");
+
         if (strings.length < 1) {
-            p.setCanPickupItems(false);
+            pdc.set(storedRulesPage, PersistentDataType.INTEGER, 1);
 
-            p.sendMessage(" ");
-            p.sendMessage(" ");
-            p.sendMessage(" ");
-            p.sendMessage(" ");
-            p.sendMessage(" ");
-            p.sendMessage(" ");
-            p.sendMessage(" ");
-            p.sendMessage(" ");
-            p.sendMessage("\uE000");
-            p.sendMessage(" ");
-            p.sendMessage(" ");
-            p.sendMessage(" ");
-            p.sendMessage(ChatColor.DARK_AQUA + "" + ChatColor.BOLD + "Rules of the WSMP");
-            p.sendMessage(" ");
-            p.sendMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "Rule 1. " + ChatColor.WHITE + "Don’t do anything intended to make someone unhappy. Don’t make fun of people, and no racism, homophobia, transphobia, etc. While swearing is allowed (in moderation), slurs are NEVER allowed.");
-            p.sendMessage(" ");
-            p.sendMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "Rule 2. " + ChatColor.WHITE + "Minecraft is a game that lots of younger kids play. No NSFW, In chat or built on the server, Don’t talk about anything unpleasant or controversial. Everyone is here to play a game and have fun.");
-            p.sendMessage(" ");
+            String firstRule = rulesList.getFirst();
+            String secondRule = (rulesList.size() > 1) ? rulesList.get(1) : "";
+            sendRulesPage(p, logo, firstRule, secondRule, 1, totalPages);
+        }
+        else if (strings[0].equalsIgnoreCase("accept")) {
+            pdc.set(storedRulesPage, PersistentDataType.INTEGER, -2);
 
-
-            TextComponent msg = new TextComponent("[Next Page]");
-            msg.setColor(ChatColor.DARK_GREEN.asBungee());
-            msg.setBold(true);
-
-            msg.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/rules p2"));
-            msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
-                    new Text("Click to go to the next page")));
-            p.spigot().sendMessage(msg);
-        } else if (strings[0].equalsIgnoreCase("p2")) {
-            p.sendMessage(" ");
-            p.sendMessage(ChatColor.DARK_AQUA + "" + ChatColor.BOLD + "Rules of the WSMP");
-            p.sendMessage(" ");
-            p.sendMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "Rule 3. " + ChatColor.WHITE + "All of the rules listed above apply everywhere in the server and are enforced by admins, but every player-made country has their own rules that their leaders enforce. Make sure that while in an in-game country, you follow their laws and international laws.");
-            p.sendMessage(" ");
-            p.sendMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "Rule 4. " + ChatColor.WHITE + "No cheating, hacking, or exploiting! Automatic farms are allowed but duping is not, the only things you can duplicate are sand/gravel/concrete and tnt, as these are non-renewable resources. Again any form of finding ores that wasn’t intended by Mojang is prohibited!");
-            p.sendMessage(" ");
-
-
-            TextComponent msg2 = new TextComponent("[Previous Page] ");
-            msg2.setColor(ChatColor.DARK_GREEN.asBungee());
-            msg2.setBold(true);
-
-            msg2.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/rules"));
-            msg2.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
-                    new Text("Click to go to the previous page")));
-
-            TextComponent msg = new TextComponent("[Next Page]");
-            msg.setColor(ChatColor.DARK_GREEN.asBungee());
-            msg.setBold(true);
-
-            msg.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/rules p3"));
-            msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
-                    new Text("Click to go to the next page")));
-            p.spigot().sendMessage(msg2, msg);
-
-        } else if (strings[0].equalsIgnoreCase("p3")) {
-            p.sendMessage(" ");
-            p.sendMessage(ChatColor.DARK_AQUA + "" + ChatColor.BOLD + "Rules of the WSMP");
-            p.sendMessage(" ");
-            p.sendMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "Rule 5. " + ChatColor.WHITE + "This includes spam in chat or purposefully building at someone else’s base just to annoy them, or anything else meant to annoy someone.");
-            p.sendMessage(" ");
-            p.sendMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "Rule 6. " + ChatColor.WHITE + "Don’t share anyone else’s personal information, no discussion of illegal activity. the usage or discussion of cracked/free Minecraft accounts will get you banned!");
-            p.sendMessage(" ");
-
-
-            TextComponent msg2 = new TextComponent("[Previous Page] ");
-            msg2.setColor(ChatColor.DARK_GREEN.asBungee());
-            msg2.setBold(true);
-
-            msg2.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/rules p2"));
-            msg2.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
-                    new Text("Click to go to the previous page")));
-
-            TextComponent msg = new TextComponent("[Accept rules]");
-            msg.setColor(ChatColor.DARK_GREEN.asBungee());
-            msg.setBold(true);
-
-            msg.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/rules accept"));
-            msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
-                    new Text("Click to go to the next page")));
-            p.spigot().sendMessage(msg2, msg);
-
-        } else if (strings[0].equalsIgnoreCase("accept")) {
-
-            p.setCanPickupItems(true);
-            p.setGameMode(GameMode.SURVIVAL);
-            p.sendMessage(" ");
-            p.sendMessage(" ");
-            p.sendMessage(" ");
-            p.sendMessage(" ");
-            p.sendMessage(" ");
-            p.sendMessage(" ");
-            p.sendMessage(" ");
-            p.sendMessage(" ");
-            p.sendMessage(" ");
-            p.sendMessage(" ");
-            p.sendMessage(" ");
-            p.sendMessage(" ");
-            p.sendMessage(" ");
-            p.sendMessage(" ");
-            p.sendMessage(" ");
-            p.sendMessage(" ");
-            p.sendMessage(" ");
-            p.sendMessage(" ");
-            p.sendMessage(" ");
+            p.sendMessage(" \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n");
             sender.getServer().broadcastMessage(ChatColor.GOLD + "" + ChatColor.BOLD + p.getDisplayName() + " has accepted the rules! Welcome to the server!");
+            effectsTake(p);
 
             try {
                 PlayerFile.time();
@@ -155,8 +81,76 @@ public class RulesCommand implements CommandExecutor {
                 getLogger().severe(i.toString());
             }
         }
+        else if (strings[0].startsWith("p")) {
+            int pageNum;
+            try {
+               pageNum = Integer.parseInt(strings[0].substring(1));
+            } catch (NumberFormatException e) {
+                p.sendMessage(ChatColor.RED + "Please enter a valid page number! Ex: p1");
+                return true;
+            }
 
+            if (pageNum < 1) pageNum = 1;
+            else if (pageNum > totalPages) pageNum = totalPages;
+
+            pdc.set(storedRulesPage, PersistentDataType.INTEGER, pageNum);
+
+            String firstRule = rulesList.get(((pageNum - 1) * 2));
+            String secondRule = (((pageNum - 1) * 2) + 1 <= rulesList.size()) ? rulesList.get(((pageNum - 1) * 2) + 1) : "";
+            sendRulesPage(p, logo, firstRule, secondRule, pageNum, totalPages);
+        }
 
         return true;
+    }
+
+    public void sendRulesHeader(Player p, String logo) {
+        p.sendMessage(" \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n");
+        p.sendMessage(logo + " \n \n \n");
+        p.sendMessage(ChatColor.DARK_AQUA + "" + ChatColor.BOLD + "Rules of the WSMP");
+    }
+
+    public void sendRulesPage(Player p, String logo, String firstRule, String secondRule, int page, int totalPages) {
+        sendRulesHeader(p, logo);
+        p.sendMessage(ChatColor.GOLD + " \n" + ChatColor.BOLD + "Rule " + (((page - 1) * 2) + 1) + ". " + ChatColor.WHITE + firstRule);
+        if (!secondRule.isEmpty()) p.sendMessage(ChatColor.GOLD + " \n" + ChatColor.BOLD + "Rule " + (((page - 1) * 2) + 2) + ". " + ChatColor.WHITE + secondRule + " \n");
+
+        TextComponent previousPage = new TextComponent("");
+        TextComponent nextPage = new TextComponent("");
+        TextComponent accept = new TextComponent("");
+
+        if (page != 1) {
+            previousPage = new TextComponent("[Previous Page] ");
+            previousPage.setColor(ChatColor.DARK_GREEN.asBungee());
+            previousPage.setBold(true);
+            previousPage.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/rules p" + (page - 1)));
+            previousPage.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("Click to go to the previous page")));
+        }
+        if (page != totalPages) {
+            nextPage = new TextComponent("[Next Page]");
+            nextPage.setColor(ChatColor.DARK_GREEN.asBungee());
+            nextPage.setBold(true);
+            nextPage.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/rules p" + (page + 1)));
+            nextPage.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("Click to go to the next page")));
+        }
+        else {
+            accept = new TextComponent("[Accept rules]");
+            accept.setColor(ChatColor.DARK_GREEN.asBungee());
+            accept.setBold(true);
+            accept.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/rules accept"));
+            accept.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("Click to accept the rules")));
+        }
+
+        p.spigot().sendMessage(previousPage, nextPage, accept);
+
+        Integer currentRulesPage = 0;
+        PersistentDataContainer pdc = p.getPersistentDataContainer();
+        NamespacedKey storedRulesPage = new NamespacedKey(this.plugin, "currentRulesPage");
+        if (pdc.has(storedRulesPage, PersistentDataType.INTEGER)) {
+            currentRulesPage = pdc.get(storedRulesPage, PersistentDataType.INTEGER);
+        }
+
+        if (currentRulesPage != null && page == currentRulesPage) {
+            getServer().getScheduler().scheduleSyncDelayedTask(this.plugin, () -> sendRulesPage(p, logo, firstRule, secondRule, page, totalPages), 4L);
+        }
     }
 }

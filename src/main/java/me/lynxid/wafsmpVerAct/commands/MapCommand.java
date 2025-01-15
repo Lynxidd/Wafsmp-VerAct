@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class MapCommand implements CommandExecutor {
 
-    private  final WafsmpVerAct plugin;
+    private final WafsmpVerAct plugin;
 
     public MapCommand(WafsmpVerAct plugin) {
         this.plugin = plugin;

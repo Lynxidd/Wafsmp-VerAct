@@ -25,6 +25,12 @@ commands:
     permission-message: You do not have permission to use this command.
     description: Shows the rules of the WSMP
     usage: /<command> [player]
+  rulessetup:
+    aliases: rsetup
+    permissions: wafsmp.rules
+    permission-message: You do not have permission to use this command.
+    description: Adds the default rules to the rulesconfig.yml file.
+    usage: /<command>
 Permissions:
   wafsmp.rules:
     description: Allows you to use the command /reviewrules

@@ -1,2 +1,5 @@
 join-message: '&2Welcome back to the WSMP, &l%player%!'
+quit-message: '&2Goodbye, &l%player%! Come back soon!'
 mapURL: 'http://wafflessmp.apexmc.co:7652/'
+websiteURL: 'https://wafcorp.org/smp/'
+countriesURL: "https://wafcorp.org/smp/countries/"
