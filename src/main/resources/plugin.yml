@@ -1,5 +1,5 @@
 name: Wafsmp-VerAct
-version: '1.0.0'
+version: '1.0.2'
 main: me.lynxid.wafsmpVerAct.WafsmpVerAct
 api-version: '1.21'
 load: STARTUP
@@ -19,6 +19,10 @@ commands:
     description: Sends a link for the server map
     permission: wafsmp.member
     usage: /<command>
+  website:
+    description: Sends a link for the server website
+    permission: wafsmp.member
+    usage: /<command> [countries]
   reviewrules:
     aliases: rrules
     permission: wafsmp.rules

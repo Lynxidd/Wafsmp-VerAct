@@ -25,7 +25,6 @@ public class MapCommand implements CommandExecutor {
         String url = this.plugin.getConfig().getString("mapURL");
 
         if (url == null) return false;{
-
             sender.sendMessage(ChatColor.GREEN + "You can view the map here:");
 
             TextComponent msg = new TextComponent("[Map!]");
@@ -37,8 +36,6 @@ public class MapCommand implements CommandExecutor {
                     new Text("Click here to see the map!")));
 
            sender.spigot().sendMessage(msg);
-
-
         }
 
         return true;
