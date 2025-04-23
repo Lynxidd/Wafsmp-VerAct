@@ -51,6 +51,8 @@ public class RulesCommand implements CommandExecutor {
         String logo = RulesFile.get().getString("logo");
         List<String> rulesList = RulesFile.get().getStringList("rules");
 
+
+
         if (rulesList.isEmpty()) return true;
         int totalPages = ((rulesList.size() % 2 == 0) ? rulesList.size() : rulesList.size() + 1) / 2;
 

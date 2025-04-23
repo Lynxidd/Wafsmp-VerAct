@@ -1,7 +1,8 @@
 name: Wafsmp-VerAct
-version: '1.0.2'
+version: '1.0.3'
 main: me.lynxid.wafsmpVerAct.WafsmpVerAct
 api-version: '1.21'
+prefix: WaffleSMP
 load: STARTUP
 authors: [ Lynxid ]
 description: A Plugin used by the WafflesSMP to verify users, and track activity.

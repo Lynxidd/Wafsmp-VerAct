@@ -1,6 +1,7 @@
 package me.lynxid.wafsmpVerAct;
 
 import me.lynxid.wafsmpVerAct.commands.*;
+import me.lynxid.wafsmpVerAct.files.DiscordFile;
 import me.lynxid.wafsmpVerAct.files.PlayerFile;
 import me.lynxid.wafsmpVerAct.files.RulesFile;
 import me.lynxid.wafsmpVerAct.listeners.ChatListener;
@@ -9,24 +10,42 @@ import me.lynxid.wafsmpVerAct.listeners.JoinListener;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.IOException;
 import java.util.Objects;
 
 public final class WafsmpVerAct extends JavaPlugin implements Listener {
-
 
     @Override
     public void onEnable() {
         // Plugin startup logic
 
-        getLogger().info("Wafsmp VerAct has started!");
-
+        getLogger().info("Loading WafflesSMP...");
         saveDefaultConfig();
-        RulesFile.setup();
-        RulesFile.setDefault();
-        RulesFile.save();
 
+        RulesFile.setup();
+        if (RulesFile.get().get("Setup Run") == null) {
+            getLogger().info("Reseting Rules...");
+            try {
+                RulesFile.setDefault();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            getLogger().info("Rules Ready!");
+            RulesFile.save();
+        }
+
+        getLogger().info("Loading PlayerFiles...");
         PlayerFile.setup();
         RulesFile.reload();
+
+
+        DiscordFile.startUp();
+        getLogger().info("Discord ready!");
+
+        getLogger().info("Wafsmp VerAct has started!");
+
+
 
         getServer().getPluginManager().registerEvents(this, this);
         getServer().getPluginManager().registerEvents(new JoinLeaveListener(this), this);

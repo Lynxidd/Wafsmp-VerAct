@@ -52,10 +52,11 @@ public class RulesFile {
         rulesFile = YamlConfiguration.loadConfiguration(file);
     }
 
-    public static void setDefault() {
+    public static void setDefault() throws IOException {
+        getLogger().info("[Wafsmp-VerAct] Defaults for rules set!");
         RulesFile.get().set("Setup run", true);
         RulesFile.get().set("logo", "\uE000");
-
+        
         List<String> rulesList = new ArrayList<>();
         rulesList.add("Don’t do anything intended to make someone unhappy. Don’t make fun of people, and no racism, homophobia, transphobia, etc will be tolerated. While swearing is allowed (in moderation), slurs are NEVER allowed.");
         rulesList.add("Minecraft is a game that lots of younger kids play. No NSFW, either in chat or built on the server, and don’t talk about anything unpleasant or controversial. Everyone is here to play a game and have fun.");
@@ -65,6 +66,7 @@ public class RulesFile {
         rulesList.add("All of the rules listed above apply everywhere in the server and are enforced by admins, but every player-made country has their own rules that their leaders enforce, and international laws (including no griefing / stealing) apply everywhere else. Make sure to follow the law.");
 
         RulesFile.get().set("rules", rulesList);
+        RulesFile.get().save(file);
     }
 
     public static void effectsGive(Player p) {
