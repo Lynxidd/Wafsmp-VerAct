@@ -48,6 +48,10 @@ public class JoinListener implements Listener {
                 playerData.load(file);
                 playerData.set("Player Name", playerName);
                 playerData.set("Migrated date(dd-MM-yyyy)", date);
+                playerData.set("Accepted Rules", false);
+                playerData.set("Time Accepted", null);
+                playerData.set("Discord Linked", true);
+                playerData.set("Discord ID", null);
                 playerData.save(file);
             } catch (IOException | InvalidConfigurationException i) {
                 getLogger().severe(i.toString());

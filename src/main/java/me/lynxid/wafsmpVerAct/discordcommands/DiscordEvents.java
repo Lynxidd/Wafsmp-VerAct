@@ -84,7 +84,6 @@ public class DiscordEvents extends ListenerAdapter {
            }
         }
 
-
         if (e.getName().equalsIgnoreCase("link")) {
             id = e.getUser().getId();
             userName = e.getUser().getName();
@@ -98,7 +97,7 @@ public class DiscordEvents extends ListenerAdapter {
                          You have entered a invalid username!\s
                          Please check your spelling!\s
                          If you believe this to be a mistake please contact our administrators!!""").queue();
-            } else if (content.length() < 16 && content.length() > 3) {
+            } else {
                 if (!file.exists()){
                     getLogger().info(userName + " ran discord command '/link' but has not completed step one!");
                     e.reply("""
@@ -121,11 +120,12 @@ public class DiscordEvents extends ListenerAdapter {
                     } catch (InvalidConfigurationException ex) {
                         throw new RuntimeException(ex);
                     }
-                        DiscordFile.whitelist(content, j);
+
+                    DiscordFile.whitelist(content, j);
                     e.reply("""
                             # WSMP verification system!
-                             You have just completed the final step to verify your account!\s
-                             To continue with verifying your minecraft account there is one more step!\s
+                            You have just completed the final step to verify your account!\s
+                            To continue with verifying your minecraft account there is one more step!\s
                             ## Step 3: Join the server at ```wafflessmp.mcserver.us```""").queue();
 
                 } else if (file.exists() && Boolean.valueOf(discordFile.getBoolean("Whitelisted")).equals(true)) {

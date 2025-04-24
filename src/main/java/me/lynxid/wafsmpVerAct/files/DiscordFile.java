@@ -10,20 +10,21 @@ import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.requests.restaction.CommandListUpdateAction;
 
+import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.jetbrains.annotations.NotNull;
 
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
-import static me.lynxid.wafsmpVerAct.files.PlayerFile.date;
 import static net.dv8tion.jda.api.interactions.commands.OptionType.*;
-import static org.bukkit.Bukkit.getLogger;
+import static org.bukkit.Bukkit.*;
 
 public class DiscordFile {
 
@@ -32,7 +33,7 @@ public class DiscordFile {
     public static FileConfiguration discordFile;
     public static File discordData;
     public static File userFiles;
-
+    public static JDA jda;
 
 
     public static void setup(){
@@ -92,9 +93,10 @@ public class DiscordFile {
 
         getLogger().info("Loading discord connections...");
         try {
-            JDA jda = JDABuilder.createDefault(getToken(), GatewayIntent.MESSAGE_CONTENT, GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_MESSAGE_REACTIONS)
-                    .setActivity(Activity.watching("your messages"))
+            jda = JDABuilder.createDefault(getToken(), GatewayIntent.MESSAGE_CONTENT, GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_MESSAGE_REACTIONS, GatewayIntent.GUILD_MEMBERS)
+                    .setActivity(Activity.customStatus("Run /verify to get started!"))
                     .addEventListeners(new DiscordEvents())
+                    .setMemberCachePolicy(MemberCachePolicy.ALL.and(MemberCachePolicy.lru(1000)))
                     .build();
             getLogger().info("Discord bot connected!");
 
@@ -106,6 +108,8 @@ public class DiscordFile {
                             .addOption(STRING, "username", "Your Minecraft username", true),
                     Commands.slash("verify", "Whitelist your minecraft account on the server")
             ).queue();
+
+
 
             jda.awaitReady();
         } catch (InvalidTokenException e) {
@@ -121,7 +125,7 @@ public class DiscordFile {
     }
 
     public static String getToken(){
-      return discordFile.getString("token");
+      return discordFile.getString("Token");
     }
 
     public static void save(){
@@ -138,12 +142,13 @@ public class DiscordFile {
 
     public static void setDefault() throws IOException, InvalidConfigurationException {
         DiscordFile.get().load(file);
-        DiscordFile.get().set("token", "");
-        DiscordFile.get().set("migrated-date(dd-MM-yyyy)", date);
+        DiscordFile.get().set("Token", "<Put Token Here>");
+        DiscordFile.get().set("Logging Channel", "<Put Logging Channel ID Here>");
+        DiscordFile.get().set("Server Console", "<Put Server Console Channel ID Here>");
         DiscordFile.get().save(file);
     }
 
-    public static void whitelist(String IGN, JDA j){
-        Objects.requireNonNull( j.getTextChannelById("1317993365924745277")).sendMessage("whitelist add " + IGN).queue();
+    public static void whitelist(String IGN, @NotNull JDA j){
+            Objects.requireNonNull( j.getTextChannelById("1317993365924745277")).sendMessage("whitelist add " + IGN).queue();
     }
 }
