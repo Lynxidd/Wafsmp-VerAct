@@ -19,31 +19,31 @@ public final class WafsmpVerAct extends JavaPlugin implements Listener {
     public void onEnable() {
         // Plugin startup logic
 
-        getLogger().info("Loading WafflesSMP...");
+        getLogger().info("[Wafsmp-VerAct] Loading WafflesSMP...");
         saveDefaultConfig();
 
         RulesFile.setup();
         if (RulesFile.get().get("Setup Run") == null) {
-            getLogger().info("Resetting Rules...");
+            getLogger().info("[Wafsmp-VerAct] Resetting Rules...");
             try {
                 RulesFile.setDefault();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         } else {
-            getLogger().info("Rules Ready!");
+            getLogger().info("[Wafsmp-VerAct] Rules Ready!");
             RulesFile.save();
         }
 
-        getLogger().info("Loading PlayerFiles...");
+        getLogger().info("[Wafsmp-VerAct] Loading PlayerFiles...");
         PlayerFile.setup();
         RulesFile.reload();
 
 
         DiscordFile.startUp();
-        getLogger().info("Discord ready!");
+        getLogger().info("[Wafsmp-VerAct] Discord ready!");
 
-        getLogger().info("Wafsmp VerAct has started!");
+        getLogger().info("[Wafsmp-VerAct] Wafsmp VerAct has started!");
 
 
 

@@ -36,9 +36,9 @@ public class DiscordEvents extends ListenerAdapter {
                 try{
                     if (!file.createNewFile()) {
                         // It is impossible for this to happen, it's just here to get rid of the stupid warning
-                        getLogger().info("File already exists!");
+                        getLogger().info("[Wafsmp-VerAct] File already exists!");
                     }
-                    getLogger().info("Creating file for " + userName + "!");
+                    getLogger().info("[Wafsmp-VerAct] Creating file for " + userName + "!");
                     PlayerFile.time();
                     discordFile.load(file);
                     discordFile.set("File created on",date);
@@ -48,7 +48,7 @@ public class DiscordEvents extends ListenerAdapter {
                     discordFile.set("Whitelisted", false);
                     discordFile.set("Blocked", false);
                     discordFile.save(file);
-                    getLogger().info("Created file for " + userName);
+                    getLogger().info("[Wafsmp-VerAct] Created file for " + userName);
                     e.reply("""
                             # Welcome to the WSMP verification system!
                              You have just completed the first step to verify your account!\s
@@ -60,7 +60,7 @@ public class DiscordEvents extends ListenerAdapter {
                     throw new RuntimeException(ex);
                 }
             } else if (file.exists() && Boolean.valueOf(discordFile.getBoolean("Whitelisted")).equals(false) && Objects.requireNonNull(discordFile.get("Blocked")).equals(false)) {
-                getLogger().info(userName + " ran discord command '/verify'");
+                getLogger().info("[Wafsmp-VerAct] " + userName + " ran discord command '/verify'");
                 e.reply("""
                             # Welcome back to the WSMP verification system!
                              You have already completed this step!\s
@@ -69,14 +69,14 @@ public class DiscordEvents extends ListenerAdapter {
             } else if (file.exists() && Boolean.valueOf(discordFile.getBoolean("Whitelisted")).equals(true)) {
                 String IGN = discordFile.getString("Minecraft IGN");
                 String date = discordFile.getString("File created on");
-                getLogger().info(userName + " ran discord command '/verify' and is already whitelisted!");
+                getLogger().info("[Wafsmp-VerAct] " + userName + " ran discord command '/verify' and is already whitelisted!");
                 e.reply("# Welcome back to the WSMP verification system!\n" +
                         " You have already completed this step! \n" +
                         " This account is already linked with a minecraft account! \n" +
                         " According to our records you linked this discord account to " + IGN + " on "+ date + "\n" +
                         " If you already have linked your minecraft and still can't connect to the WafflesSMP please contact our administrators!!").queue();
             } else if (file.exists() && Objects.requireNonNull(discordFile.get("Blocked")).equals(true)) {
-                getLogger().info(userName + " ran discord command '/verify' and is blocked!");
+                getLogger().info("[Wafsmp-VerAct] " + userName + " ran discord command '/verify' and is blocked!");
                 e.reply("""
                             # Warning from WSMP verification system!
                              This account is blocked from using our services!\s
@@ -99,14 +99,14 @@ public class DiscordEvents extends ListenerAdapter {
                          If you believe this to be a mistake please contact our administrators!!""").queue();
             } else {
                 if (!file.exists()){
-                    getLogger().info(userName + " ran discord command '/link' but has not completed step one!");
+                    getLogger().info("[Wafsmp-VerAct] " + userName + " ran discord command '/link' but has not completed step one!");
                     e.reply("""
                             # Welcome to the WSMP verification system!
                             You have not completed the prior step!\s
                             To begin with verifying your minecraft account you must follow the first steps!\s
                             ## Step 1: Please run the following command: ```/verify```""").queue();
                 } else if (file.exists() && Boolean.valueOf(discordFile.getBoolean("Whitelisted")).equals(false) && Objects.requireNonNull(discordFile.get("Blocked")).equals(false)) {
-                    getLogger().info(userName + " ran discord command '/link'");
+                    getLogger().info("[Wafsmp-VerAct] " + userName + " ran discord command '/link'");
                     JDA j = e.getJDA();
                     try {
                         discordFile.load(file);
@@ -114,7 +114,7 @@ public class DiscordEvents extends ListenerAdapter {
                         discordFile.set("Whitelisted", true);
                         discordFile.set("Whitelisted on", date);
                         discordFile.save(file);
-                        getLogger().info("Whitelisted " + content + " for " + userName);
+                        getLogger().info("[Wafsmp-VerAct] Whitelisted " + content + " for " + userName);
                     } catch (IOException i) {
                         //
                     } catch (InvalidConfigurationException ex) {
@@ -131,14 +131,14 @@ public class DiscordEvents extends ListenerAdapter {
                 } else if (file.exists() && Boolean.valueOf(discordFile.getBoolean("Whitelisted")).equals(true)) {
                     String IGN = discordFile.getString("Minecraft IGN");
                     String date = discordFile.getString("File created on");
-                    getLogger().info(userName + " ran discord command '/verify' and is already whitelisted!");
+                    getLogger().info("[Wafsmp-VerAct] " + userName + " ran discord command '/verify' and is already whitelisted!");
                     e.reply("# Welcome back to the WSMP verification system!\n" +
                             " You have already completed this step! \n" +
                             " This account is already linked with a minecraft account! \n" +
                             " According to our records you linked this discord account to " + IGN + " on "+ date + "\n" +
                             " If you already have linked your minecraft and still can't connect to the WafflesSMP please contact our administrators!!").queue();
                 } else if (file.exists() && Objects.requireNonNull(discordFile.get("Blocked")).equals(true)) {
-                    getLogger().info(userName + " ran discord command '/verify' and is blocked!");
+                    getLogger().info("[Wafsmp-VerAct] " + userName + " ran discord command '/verify' and is blocked!");
                     e.reply("""
                             # Warning from WSMP verification system!
                              This account is blocked from using our services!\s

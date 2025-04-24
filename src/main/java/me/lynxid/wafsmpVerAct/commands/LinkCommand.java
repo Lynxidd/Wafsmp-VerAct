@@ -48,7 +48,7 @@ public class LinkCommand implements CommandExecutor {
             try {
                 discordUser = j.getUsersByName(strings[0], true).getFirst();
             } catch (Exception e) {
-                getLogger().info(playerN + " tried to run '/link' and put in a invalid username! String: " + strings[0]);
+                getLogger().info("[Wafsmp-VerAct]" + playerN + " tried to run '/link' and put in a invalid username! String: " + strings[0]);
                 sender.sendMessage(" ");
                 sender.sendMessage(" ");
                 sender.sendMessage(" ");

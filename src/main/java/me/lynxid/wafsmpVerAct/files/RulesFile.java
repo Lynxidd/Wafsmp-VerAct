@@ -27,7 +27,7 @@ public class RulesFile {
             try{
                 if (!file.createNewFile()) {
                     // It is impossible for this to happen, it's just here to get rid of the stupid warning
-                    getLogger().info("File already exists!");
+                    getLogger().info("[Wafsmp-VerAct] File already exists!");
                 }
             } catch (IOException e) {
                 //
@@ -44,7 +44,7 @@ public class RulesFile {
         try {
             rulesFile.save(file);
         } catch (IOException e) {
-            System.out.println(ChatColor.DARK_RED + "ERROR could not save file");
+            getLogger().info(ChatColor.DARK_RED + "[Wafsmp-VerAct] ERROR could not save file");
         }
     }
 

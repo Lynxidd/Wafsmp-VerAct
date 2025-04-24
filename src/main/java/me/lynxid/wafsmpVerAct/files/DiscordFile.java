@@ -40,20 +40,20 @@ public class DiscordFile {
         discordData = new File(Objects.requireNonNull(Bukkit.getServer().getPluginManager().getPlugin("Wafsmp-VerAct")).getDataFolder(), File.separator + "DiscordData");
         userFiles = new File(discordData, File.separator + "UserFiles");
         if (!discordData.exists()) {
-            getLogger().info("Discord folder not found, attempting to recreate");
+            getLogger().info("[Wafsmp-VerAct] Discord folder not found, attempting to recreate");
             if (!discordData.mkdir()) {
-                getLogger().info("Directory already exists!");
+                getLogger().info("[Wafsmp-VerAct] Directory already exists!");
             }
-            getLogger().info("Discord UserFiles not found, attempting to recreate");
+            getLogger().info("[Wafsmp-VerAct] Discord UserFiles not found, attempting to recreate");
             if (!userFiles.mkdir()) {
-                getLogger().info("Directory already exists!");
+                getLogger().info("[Wafsmp-VerAct] Directory already exists!");
             }
 
         } else if (discordData.exists()) {
             if (!userFiles.exists()) {
-                getLogger().info("Discord UserFiles not found, attempting to recreate");
+                getLogger().info("[Wafsmp-VerAct] Discord UserFiles not found, attempting to recreate");
                 if (!userFiles.mkdir()) {
-                    getLogger().info("Directory already exists!");
+                    getLogger().info("[Wafsmp-VerAct] Directory already exists!");
                 }
             }
         }
@@ -65,7 +65,7 @@ public class DiscordFile {
             try{
                 if (!file.createNewFile()) {
                     // It is impossible for this to happen, it's just here to get rid of the stupid warning
-                    getLogger().info("File already exists!");
+                    getLogger().info("[Wafsmp-VerAct] File already exists!");
                 }
             } catch (IOException e) {
                 //
@@ -77,10 +77,10 @@ public class DiscordFile {
 
     public static void startUp(){
 
-        getLogger().info("Loading Discord...");
+        getLogger().info("[Wafsmp-VerAct] Loading Discord...");
         DiscordFile.setup();
 
-        if (discordFile.get("token") == null) {
+        if (discordFile.get("Token") == null) {
             try {
                 DiscordFile.setDefault();
             } catch (IOException | InvalidConfigurationException e) {
@@ -91,17 +91,17 @@ public class DiscordFile {
             DiscordFile.save();
         }
 
-        getLogger().info("Loading discord connections...");
+        getLogger().info("[Wafsmp-VerAct] Loading discord connections...");
         try {
             jda = JDABuilder.createDefault(getToken(), GatewayIntent.MESSAGE_CONTENT, GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_MESSAGE_REACTIONS, GatewayIntent.GUILD_MEMBERS)
                     .setActivity(Activity.customStatus("Run /verify to get started!"))
                     .addEventListeners(new DiscordEvents())
                     .setMemberCachePolicy(MemberCachePolicy.ALL.and(MemberCachePolicy.lru(1000)))
                     .build();
-            getLogger().info("Discord bot connected!");
+            getLogger().info("[Wafsmp-VerAct] Discord bot connected!");
 
 
-            getLogger().info("Loading Discord commands...");
+            getLogger().info("[Wafsmp-VerAct] Loading Discord commands...");
             CommandListUpdateAction commands = jda.updateCommands();
             commands.addCommands(
                     Commands.slash("link","Link your minecraft account to your discord account")
@@ -113,8 +113,7 @@ public class DiscordFile {
 
             jda.awaitReady();
         } catch (InvalidTokenException e) {
-            getLogger().severe("The token in discord-config is invalid! Please change the token in the config and restart/reload the server to apply the changes.");
-            getLogger().info("Disabling discord bot");
+            getLogger().severe("[Wafsmp-VerAct] The token in discord-config is invalid! Please change the token in the config and restart/reload the server to apply the changes.");
         } catch (InterruptedException | IllegalArgumentException e) {
             throw new RuntimeException(e);
         }
@@ -149,6 +148,11 @@ public class DiscordFile {
     }
 
     public static void whitelist(String IGN, @NotNull JDA j){
-            Objects.requireNonNull( j.getTextChannelById("1317993365924745277")).sendMessage("whitelist add " + IGN).queue();
+        String console = DiscordFile.get().getString("Server Console");
+        if (console != null) {
+            Objects.requireNonNull( j.getTextChannelById(console)).sendMessage("whitelist add " + IGN).queue();
+        } else {
+            getLogger().info("[WafflesSMP]");
+        }
     }
 }
