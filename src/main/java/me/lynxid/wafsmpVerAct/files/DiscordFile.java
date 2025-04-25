@@ -107,11 +107,21 @@ public class DiscordFile {
                     Commands.slash("link","Link your minecraft account to your discord account")
                             .addOption(STRING, "username", "Your Minecraft username", true),
                     Commands.slash("verify", "Whitelist your minecraft account on the server")
+                            .setGuildOnly(true)
             ).queue();
 
-
-
             jda.awaitReady();
+
+            String log = DiscordFile.get().getString("Logging Channel");
+            if (log != null) {
+                Objects.requireNonNull( jda.getTextChannelById(log)).sendMessage("""
+                            # WafflesSMP Verification and Activation system
+                            Discord bot is now online!
+                            """).queue();
+            } else {
+                getLogger().info("[WafflesSMP] Channel id for server log is missing! Please repair this!");
+            }
+
         } catch (InvalidTokenException e) {
             getLogger().severe("[Wafsmp-VerAct] The token in discord-config is invalid! Please change the token in the config and restart/reload the server to apply the changes.");
         } catch (InterruptedException | IllegalArgumentException e) {
@@ -142,17 +152,21 @@ public class DiscordFile {
     public static void setDefault() throws IOException, InvalidConfigurationException {
         DiscordFile.get().load(file);
         DiscordFile.get().set("Token", "<Put Token Here>");
+        DiscordFile.get().set("Server ID", "<Put Server ID Here>");
         DiscordFile.get().set("Logging Channel", "<Put Logging Channel ID Here>");
         DiscordFile.get().set("Server Console", "<Put Server Console Channel ID Here>");
+        DiscordFile.get().set("Bot Commands", "<Put Bot Commands Channel ID Here>");
+        DiscordFile.get().set("Ping Role", "<Put Admin Role ID Here>");
         DiscordFile.get().save(file);
     }
 
     public static void whitelist(String IGN, @NotNull JDA j){
         String console = DiscordFile.get().getString("Server Console");
+
         if (console != null) {
             Objects.requireNonNull( j.getTextChannelById(console)).sendMessage("whitelist add " + IGN).queue();
         } else {
-            getLogger().info("[WafflesSMP]");
+            getLogger().info("[WafflesSMP] Channel id for console is missing! Please repair this!");
         }
     }
 }
